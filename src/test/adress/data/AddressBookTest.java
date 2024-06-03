@@ -267,7 +267,7 @@ class AddressBookTest {
 
     @Test
     void testDeleteEntry() {
-        String simulatedInput = "Her" + "\n" + "1" + "\n" + "y" + "\n";
+        String simulatedInput = "Her" + "\n" + "1" + "\n" + "Y" + "\n";
         ByteArrayInputStream inputStream = new ByteArrayInputStream(simulatedInput.getBytes());
         System.setIn(inputStream);
 
@@ -348,6 +348,49 @@ class AddressBookTest {
         ArrayList<AddressEntry> entries = addressBook.getAdressBook();
 
         assertEquals(2, entries.size());
+
+        addressBook.showAddressBook();
+    }
+
+    @Test
+    void testIncorrectInputThenCorrectInputForDeletingEntry() {
+        String simulatedInput = "Her" + "\n" + "4\n" +"1" + "\n" + "o\n" + "y" + "\n";
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(simulatedInput.getBytes());
+        System.setIn(inputStream);
+
+        AddressBook addressBook = new AddressBook();
+
+        AddressEntry firstEntry = new AddressEntry();
+        firstEntry.setName(name);
+        firstEntry.setLastName(lastName);
+        firstEntry.setStreet(street);
+        firstEntry.setCity(city);
+        firstEntry.setState(state);
+        firstEntry.setZip(zip);
+        firstEntry.setEmail(email);
+        firstEntry.setPhoneNumber(phoneNumber);
+
+        addressBook.addAdressEntry(firstEntry);
+
+        AddressEntry secondEntry = new AddressEntry();
+        secondEntry.setName(nameVersionTwo);
+        secondEntry.setLastName(lastNameVersionTwo);
+        secondEntry.setStreet(streetVersionTwo);
+        secondEntry.setCity(cityVersionTwo);
+        secondEntry.setState(stateVersionTwo);
+        secondEntry.setZip(zipVersionTwo);
+        secondEntry.setEmail(emailVersionTwo);
+        secondEntry.setPhoneNumber(phoneNumberVersionTwo);
+
+        addressBook.addAdressEntry(secondEntry);
+
+        addressBook.showAddressBook();
+
+        addressBook.deleteAddressEntry();
+
+        ArrayList<AddressEntry> entries = addressBook.getAdressBook();
+
+        assertEquals(1, entries.size());
 
         addressBook.showAddressBook();
     }

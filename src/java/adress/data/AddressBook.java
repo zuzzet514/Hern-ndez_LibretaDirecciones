@@ -21,36 +21,38 @@ public class AddressBook {
         }
     }
 
-    public void searchAddressEntry() {
+    public ArrayList<AddressEntry> searchAddressEntry() {
         String query = reader.readData("Enter last name or first letters:", this::isDataNotEmpty);
         ArrayList<AddressEntry> results = this.searchByLastName(query);
         messageWhenSearchingAddressEntry(results);
         printAdressEntryList(results);
+        return results;
     }
 
 
     public void deleteAddressEntry() {
-        String queryLastName = reader.readData("Enter last name's contact you want to delete:", this::isDataNotEmpty);
-
-        ArrayList<AddressEntry> results = searchByLastName(queryLastName);
-        messageWhenSearchingAddressEntry(results);
-        printAdressEntryList(results);
+        ArrayList<AddressEntry> results = searchAddressEntry();
 
         if (results.size() > 0) {
-            String stringSelectedEntry = reader.readData("Enter the number you want to delete:", this::isNumericDataValid);
+            String stringSelectedEntry;
 
-            int selectedEntry = Integer.parseInt(stringSelectedEntry);
+            int selectedEntry;
+
+            do {
+                stringSelectedEntry = reader.readData("Enter the number you want to delete:", this::isNumericDataValid);
+                selectedEntry = Integer.parseInt(stringSelectedEntry);
+                selectedEntry-=1;
+
+            } while (!isBetweenEntrySize(selectedEntry, results));
 
             int entryIndex = lookingForExistingEntryByIndex(results.get(selectedEntry));
 
-            String wantToDelete = reader.readData("Enter 'y' to delete or 'n' to go back to menu", this::isYOrN);
+            String wantToDelete = reader.readData("Enter 'y' to delete or 'n' to go back to menu", this::isYOrN).toLowerCase();
 
-            if (wantToDelete.equals('y')) {
+            if (wantToDelete.equals("y")) {
                 adressBook.remove(entryIndex);
             }
         }
-
-
 
     }
 
@@ -96,6 +98,10 @@ public class AddressBook {
         return newAddressEntry;
     }
 
+    public AddressEntry generateAddressEntryFromFile() {
+
+    }
+
     private boolean isNumericDataValid(String data) {
         return data != null && data.matches("\\d+");
     }
@@ -110,6 +116,10 @@ public class AddressBook {
         }
         char lowerCaseData = Character.toLowerCase(data.charAt(0));
         return lowerCaseData == 'y' || lowerCaseData == 'n';
+    }
+
+    private boolean isBetweenEntrySize(int selection, ArrayList<AddressEntry> list) {
+        return selection < list.size() && selection > -1;
     }
 
     private boolean isNotDuplicated(AddressEntry entry) {
