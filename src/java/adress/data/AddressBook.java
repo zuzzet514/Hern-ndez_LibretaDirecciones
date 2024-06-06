@@ -7,18 +7,53 @@ que contiene páginas (AdressEntry)
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.File;
+import java.util.NoSuchElementException;
 
 public class AddressBook {
-    private ArrayList<AddressEntry> adressBook = new ArrayList<>();
+
+    private static AddressBook instance;
+    private ArrayList<AddressEntry> addressEntries = new ArrayList<>();
 
     private InputReader reader = new InputReader();
 
-    public void addAdressEntry(AddressEntry newEntry) {
+    private AddressBook() {}
+
+    public static AddressBook getInstance() {
+        if (instance == null) {
+            synchronized (AddressBook.class) {
+                if (instance == null) {
+                    instance = new AddressBook();
+                }
+            }
+        }
+        return instance;
+    }
+
+    public void addAddressEntry(AddressEntry newEntry) {
         if (isNotDuplicated(newEntry)) {
-            adressBook.add(newEntry);
+            addressEntries.add(newEntry);
             sortAddressBook();
         }
+    }
+
+    public void addAdressEntriesFromFile() {
+
+        try {
+            String filePath = reader.readData("Enter the file's name:", this::isATxtFile);
+
+            ArrayList<AddressEntry> entries = readEntriesFromFile(filePath);
+            for (AddressEntry entry : entries) {
+                addAddressEntry(entry);
+            }
+        } catch (NoSuchElementException ex) {
+            System.out.println("Huh? I can't find that file, sorry. Try again.");
+        }
+
+
     }
 
     public ArrayList<AddressEntry> searchAddressEntry() {
@@ -50,18 +85,18 @@ public class AddressBook {
             String wantToDelete = reader.readData("Enter 'y' to delete or 'n' to go back to menu", this::isYOrN).toLowerCase();
 
             if (wantToDelete.equals("y")) {
-                adressBook.remove(entryIndex);
+                addressEntries.remove(entryIndex);
             }
         }
 
     }
 
     public void showAddressBook() {
-        printAdressEntryList(adressBook);
+        printAdressEntryList(addressEntries);
     }
 
-    public ArrayList<AddressEntry> getAdressBook() {
-        return adressBook;
+    public ArrayList<AddressEntry> getAddressEntries() {
+        return addressEntries;
     }
 
     public AddressEntry generateAddressEntryFromUserInput() {
@@ -98,8 +133,84 @@ public class AddressBook {
         return newAddressEntry;
     }
 
-    public AddressEntry generateAddressEntryFromFile() {
+    private ArrayList<AddressEntry> readEntriesFromFile(String filePath) {
 
+        // Use the current directory if the file path is relative
+        File file = new File(filePath);
+
+        if (!file.isAbsolute()) {
+            file = new File(System.getProperty("user.dir"), filePath);
+        }
+
+        ArrayList<AddressEntry> entries = new ArrayList<>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            String firstLineThatCorrespondsName;
+
+            while ((firstLineThatCorrespondsName = br.readLine()) != null) {
+
+                AddressEntry entry = new AddressEntry();
+                entry.setName(firstLineThatCorrespondsName);
+
+
+                String lastName = br.readLine();
+                String street = br.readLine();
+                String city = br.readLine();
+                String state = br.readLine();
+                String zip = br.readLine();
+                String email = br.readLine();
+                String phoneNumber = br.readLine();
+                br.readLine();
+
+                if (isDataNotEmpty(lastName)){
+                    entry.setLastName(lastName);
+                } else {
+                    continue;
+                }
+
+                if (isDataNotEmpty(street)){
+                    entry.setStreet(street);
+                } else {
+                    continue;
+                }
+
+                if (isDataNotEmpty(city)){
+                    entry.setCity(city);
+                } else {
+                    continue;
+                }
+
+                if (isDataNotEmpty(state)){
+                    entry.setState(state);
+                } else {
+                    continue;
+                }
+
+                if (isNumericDataValid(zip)){
+                    entry.setZip(zip);
+                } else {
+                    continue;
+                }
+
+                if (isDataNotEmpty(email)){
+                    entry.setEmail(email);
+                } else {
+                    continue;
+                }
+
+                if (isDataNotEmpty(phoneNumber)){
+                    entry.setPhoneNumber(phoneNumber);
+                } else {
+                    continue;
+                }
+
+                entries.add(entry);
+
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return entries;
     }
 
     private boolean isNumericDataValid(String data) {
@@ -126,6 +237,10 @@ public class AddressBook {
         return lookingForExistingEntryByIndex(entry) == -1;
     }
 
+    private boolean isATxtFile(String file){
+        return isDataNotEmpty(file) && file.endsWith(".txt");
+    }
+
     private int lookingForExistingEntryByIndex(AddressEntry entry) {
         int index = 0;
 
@@ -138,7 +253,7 @@ public class AddressBook {
         boolean comparingEmails;
         boolean comparingPhoneNumbers;
 
-        for (AddressEntry existingEntry : adressBook) {
+        for (AddressEntry existingEntry : addressEntries) {
             comparingNames = existingEntry.getName().equalsIgnoreCase(entry.getName());
             comparingLastNames = existingEntry.getLastName().equalsIgnoreCase(entry.getLastName());
             comparingStreets = existingEntry.getStreet().equalsIgnoreCase(entry.getStreet());
@@ -158,10 +273,15 @@ public class AddressBook {
     }
 
     private void sortAddressBook() {
-        Collections.sort(adressBook, new Comparator<AddressEntry>() {
+        Collections.sort(addressEntries, new Comparator<AddressEntry>() {
             @Override
             public int compare(AddressEntry e1, AddressEntry e2) {
-                return e1.getLastName().compareToIgnoreCase(e2.getLastName());
+                int lastNameComparison = e1.getLastName().compareToIgnoreCase(e2.getLastName());
+                if (lastNameComparison != 0) {
+                    return lastNameComparison;
+                } else {
+                    return e1.getName().compareToIgnoreCase(e2.getName());
+                }
             }
         });
     }
@@ -172,7 +292,7 @@ public class AddressBook {
         String contactLastNameLoweredCase;
         String queryLoweredCase = query.toLowerCase();
 
-        for (AddressEntry entry: adressBook) {
+        for (AddressEntry entry: addressEntries) {
             contactLastNameLoweredCase = entry.getLastName().toLowerCase();
 
             if (contactLastNameLoweredCase.startsWith(queryLoweredCase)) {
@@ -194,11 +314,16 @@ public class AddressBook {
     }
 
     private void printAdressEntryList(ArrayList<AddressEntry> list) {
-        for (int i = 0; i < list.size(); i++) {
-            System.out.print((i+1) + ": ");
-            System.out.println(list.get(i));
-        }
-    }
 
+        if (list.size() == 0) {
+            System.out.println("Nothing here yet");
+        } else {
+            for (int i = 0; i < list.size(); i++) {
+                System.out.print((i+1) + ": ");
+                System.out.println(list.get(i));
+            }
+        }
+
+    }
 
 }

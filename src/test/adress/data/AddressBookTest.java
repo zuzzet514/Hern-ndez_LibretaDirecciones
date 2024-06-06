@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.lang.reflect.Field;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -40,6 +41,17 @@ class AddressBookTest {
     void tearDown() {
         System.setIn(originalSystemIn);
         System.out.println("Tear down test...");
+        clearSingletonInstance();
+    }
+
+    private void clearSingletonInstance() {
+        try {
+            Field instance = AddressBook.class.getDeclaredField("instance");
+            instance.setAccessible(true);
+            instance.set(null, null);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Test
@@ -48,7 +60,8 @@ class AddressBookTest {
         ByteArrayInputStream inputStream = new ByteArrayInputStream(simulatedInput.getBytes());
         System.setIn(inputStream);
 
-        AddressBook localAddressBook = new AddressBook();
+
+        AddressBook localAddressBook = AddressBook.getInstance();
 
         AddressEntry localEntry = localAddressBook.generateAddressEntryFromUserInput();
 
@@ -70,7 +83,7 @@ class AddressBookTest {
         ByteArrayInputStream inputStream = new ByteArrayInputStream(simulatedInput.getBytes());
         System.setIn(inputStream);
 
-        AddressBook addressBook = new AddressBook();
+        AddressBook addressBook = AddressBook.getInstance();
 
         AddressEntry entry = addressBook.generateAddressEntryFromUserInput();
 
@@ -87,7 +100,7 @@ class AddressBookTest {
     @Test
     void testAddAddressEntryAndSorting() {
 
-        AddressBook addressBook = new AddressBook();
+        AddressBook addressBook = AddressBook.getInstance();
 
         AddressEntry firstEntry = new AddressEntry();
         firstEntry.setName(name);
@@ -99,7 +112,7 @@ class AddressBookTest {
         firstEntry.setEmail(email);
         firstEntry.setPhoneNumber(phoneNumber);
 
-        addressBook.addAdressEntry(firstEntry);
+        addressBook.addAddressEntry(firstEntry);
 
         AddressEntry secondEntry = new AddressEntry();
         secondEntry.setName(nameVersionTwo);
@@ -111,9 +124,9 @@ class AddressBookTest {
         secondEntry.setEmail(emailVersionTwo);
         secondEntry.setPhoneNumber(phoneNumberVersionTwo);
 
-        addressBook.addAdressEntry(secondEntry);
+        addressBook.addAddressEntry(secondEntry);
 
-        ArrayList<AddressEntry> entries = addressBook.getAdressBook();
+        ArrayList<AddressEntry> entries = AddressBook.getInstance().getAddressEntries();
 
         assertEquals(2, entries.size());
 
@@ -127,7 +140,7 @@ class AddressBookTest {
 
     @Test
     void testNotAllowingDuplicateEntries() {
-        AddressBook addressBook = new AddressBook();
+        AddressBook addressBook = AddressBook.getInstance();
 
         AddressEntry firstEntry = new AddressEntry();
         firstEntry.setName(name);
@@ -139,7 +152,7 @@ class AddressBookTest {
         firstEntry.setEmail(email);
         firstEntry.setPhoneNumber(phoneNumber);
 
-        addressBook.addAdressEntry(firstEntry);
+        addressBook.addAddressEntry(firstEntry);
 
         AddressEntry secondEntry = new AddressEntry();
         secondEntry.setName(name);
@@ -151,9 +164,9 @@ class AddressBookTest {
         secondEntry.setEmail(email);
         secondEntry.setPhoneNumber(phoneNumber);
 
-        addressBook.addAdressEntry(secondEntry);
+        addressBook.addAddressEntry(secondEntry);
 
-        ArrayList<AddressEntry> entries = addressBook.getAdressBook();
+        ArrayList<AddressEntry> entries = AddressBook.getInstance().getAddressEntries();
 
         assertEquals(1, entries.size());
 
@@ -166,7 +179,7 @@ class AddressBookTest {
         ByteArrayInputStream inputStream = new ByteArrayInputStream(simulatedInput.getBytes());
         System.setIn(inputStream);
 
-        AddressBook addressBook = new AddressBook();
+        AddressBook addressBook = AddressBook.getInstance();
 
         AddressEntry firstEntry = new AddressEntry();
         firstEntry.setName(name);
@@ -178,7 +191,7 @@ class AddressBookTest {
         firstEntry.setEmail(email);
         firstEntry.setPhoneNumber(phoneNumber);
 
-        addressBook.addAdressEntry(firstEntry);
+        addressBook.addAddressEntry(firstEntry);
 
         AddressEntry secondEntry = new AddressEntry();
         secondEntry.setName(nameVersionTwo);
@@ -190,7 +203,7 @@ class AddressBookTest {
         secondEntry.setEmail(emailVersionTwo);
         secondEntry.setPhoneNumber(phoneNumberVersionTwo);
 
-        addressBook.addAdressEntry(secondEntry);
+        addressBook.addAddressEntry(secondEntry);
 
         addressBook.searchAddressEntry();
     }
@@ -201,7 +214,7 @@ class AddressBookTest {
         ByteArrayInputStream inputStream = new ByteArrayInputStream(simulatedInput.getBytes());
         System.setIn(inputStream);
 
-        AddressBook addressBook = new AddressBook();
+        AddressBook addressBook = AddressBook.getInstance();
 
         AddressEntry firstEntry = new AddressEntry();
         firstEntry.setName(name);
@@ -213,7 +226,7 @@ class AddressBookTest {
         firstEntry.setEmail(email);
         firstEntry.setPhoneNumber(phoneNumber);
 
-        addressBook.addAdressEntry(firstEntry);
+        addressBook.addAddressEntry(firstEntry);
 
         AddressEntry secondEntry = new AddressEntry();
         secondEntry.setName(nameVersionTwo);
@@ -225,7 +238,7 @@ class AddressBookTest {
         secondEntry.setEmail(emailVersionTwo);
         secondEntry.setPhoneNumber(phoneNumberVersionTwo);
 
-        addressBook.addAdressEntry(secondEntry);
+        addressBook.addAddressEntry(secondEntry);
 
         addressBook.searchAddressEntry();
     }
@@ -236,7 +249,7 @@ class AddressBookTest {
         ByteArrayInputStream inputStream = new ByteArrayInputStream(simulatedInput.getBytes());
         System.setIn(inputStream);
 
-        AddressBook addressBook = new AddressBook();
+        AddressBook addressBook = AddressBook.getInstance();
 
         AddressEntry firstEntry = new AddressEntry();
         firstEntry.setName(name);
@@ -248,7 +261,7 @@ class AddressBookTest {
         firstEntry.setEmail(email);
         firstEntry.setPhoneNumber(phoneNumber);
 
-        addressBook.addAdressEntry(firstEntry);
+        addressBook.addAddressEntry(firstEntry);
 
         AddressEntry secondEntry = new AddressEntry();
         secondEntry.setName(nameVersionTwo);
@@ -260,7 +273,7 @@ class AddressBookTest {
         secondEntry.setEmail(emailVersionTwo);
         secondEntry.setPhoneNumber(phoneNumberVersionTwo);
 
-        addressBook.addAdressEntry(secondEntry);
+        addressBook.addAddressEntry(secondEntry);
 
         addressBook.searchAddressEntry();
     }
@@ -271,7 +284,7 @@ class AddressBookTest {
         ByteArrayInputStream inputStream = new ByteArrayInputStream(simulatedInput.getBytes());
         System.setIn(inputStream);
 
-        AddressBook addressBook = new AddressBook();
+        AddressBook addressBook = AddressBook.getInstance();
 
         AddressEntry firstEntry = new AddressEntry();
         firstEntry.setName(name);
@@ -283,7 +296,7 @@ class AddressBookTest {
         firstEntry.setEmail(email);
         firstEntry.setPhoneNumber(phoneNumber);
 
-        addressBook.addAdressEntry(firstEntry);
+        addressBook.addAddressEntry(firstEntry);
 
         AddressEntry secondEntry = new AddressEntry();
         secondEntry.setName(nameVersionTwo);
@@ -295,13 +308,13 @@ class AddressBookTest {
         secondEntry.setEmail(emailVersionTwo);
         secondEntry.setPhoneNumber(phoneNumberVersionTwo);
 
-        addressBook.addAdressEntry(secondEntry);
+        addressBook.addAddressEntry(secondEntry);
 
         addressBook.showAddressBook();
 
         addressBook.deleteAddressEntry();
 
-        ArrayList<AddressEntry> entries = addressBook.getAdressBook();
+        ArrayList<AddressEntry> entries = AddressBook.getInstance().getAddressEntries();
 
         assertEquals(1, entries.size());
 
@@ -315,7 +328,7 @@ class AddressBookTest {
         ByteArrayInputStream inputStream = new ByteArrayInputStream(simulatedInput.getBytes());
         System.setIn(inputStream);
 
-        AddressBook addressBook = new AddressBook();
+        AddressBook addressBook = AddressBook.getInstance();
 
         AddressEntry firstEntry = new AddressEntry();
         firstEntry.setName(name);
@@ -327,7 +340,7 @@ class AddressBookTest {
         firstEntry.setEmail(email);
         firstEntry.setPhoneNumber(phoneNumber);
 
-        addressBook.addAdressEntry(firstEntry);
+        addressBook.addAddressEntry(firstEntry);
 
         AddressEntry secondEntry = new AddressEntry();
         secondEntry.setName(nameVersionTwo);
@@ -339,13 +352,13 @@ class AddressBookTest {
         secondEntry.setEmail(emailVersionTwo);
         secondEntry.setPhoneNumber(phoneNumberVersionTwo);
 
-        addressBook.addAdressEntry(secondEntry);
+        addressBook.addAddressEntry(secondEntry);
 
         addressBook.showAddressBook();
 
         addressBook.deleteAddressEntry();
 
-        ArrayList<AddressEntry> entries = addressBook.getAdressBook();
+        ArrayList<AddressEntry> entries = AddressBook.getInstance().getAddressEntries();
 
         assertEquals(2, entries.size());
 
@@ -358,7 +371,7 @@ class AddressBookTest {
         ByteArrayInputStream inputStream = new ByteArrayInputStream(simulatedInput.getBytes());
         System.setIn(inputStream);
 
-        AddressBook addressBook = new AddressBook();
+        AddressBook addressBook = AddressBook.getInstance();
 
         AddressEntry firstEntry = new AddressEntry();
         firstEntry.setName(name);
@@ -370,7 +383,7 @@ class AddressBookTest {
         firstEntry.setEmail(email);
         firstEntry.setPhoneNumber(phoneNumber);
 
-        addressBook.addAdressEntry(firstEntry);
+        addressBook.addAddressEntry(firstEntry);
 
         AddressEntry secondEntry = new AddressEntry();
         secondEntry.setName(nameVersionTwo);
@@ -382,17 +395,99 @@ class AddressBookTest {
         secondEntry.setEmail(emailVersionTwo);
         secondEntry.setPhoneNumber(phoneNumberVersionTwo);
 
-        addressBook.addAdressEntry(secondEntry);
+        addressBook.addAddressEntry(secondEntry);
 
         addressBook.showAddressBook();
 
         addressBook.deleteAddressEntry();
 
-        ArrayList<AddressEntry> entries = addressBook.getAdressBook();
+        ArrayList<AddressEntry> entries = AddressBook.getInstance().getAddressEntries();
 
         assertEquals(1, entries.size());
 
         addressBook.showAddressBook();
     }
+
+    @Test
+    void testAddEntriesFromFile() {
+        String simulatedInput = "addThese.txt\n";
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(simulatedInput.getBytes());
+        System.setIn(inputStream);
+
+        AddressBook addressBook = AddressBook.getInstance();
+
+        addressBook.addAdressEntriesFromFile();
+
+        addressBook.showAddressBook();
+
+        ArrayList<AddressEntry> entries = AddressBook.getInstance().getAddressEntries();
+
+        assertEquals(4, entries.size());
+
+    }
+
+    @Test
+    void testAddEntriesFromBadFormattedFile(){
+        String simulatedInput = "contactos.txt\n";
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(simulatedInput.getBytes());
+        System.setIn(inputStream);
+
+        AddressBook addressBook = AddressBook.getInstance();
+
+        addressBook.addAdressEntriesFromFile();
+
+        addressBook.showAddressBook();
+
+        ArrayList<AddressEntry> entries = AddressBook.getInstance().getAddressEntries();
+
+        assertEquals(1, entries.size());
+    }
+
+    @Test
+    void testAddEntriesFromFileThenDeleteOneAndAddFromTheSameFileAgain() {
+        String simulatedInput = "addThese.txt\n" + "Her" + "\n" + "1" + "\n" + "Y" + "\n" + "addThese.txt\n";
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(simulatedInput.getBytes());
+        System.setIn(inputStream);
+
+        AddressBook addressBook = AddressBook.getInstance();
+
+        addressBook.addAdressEntriesFromFile();
+
+        addressBook.showAddressBook();
+
+        addressBook.deleteAddressEntry();
+
+        addressBook.showAddressBook();
+
+        addressBook.addAdressEntriesFromFile();
+
+        addressBook.showAddressBook();
+
+        ArrayList<AddressEntry> entries = addressBook.getAddressEntries();
+
+        assertEquals(4, entries.size());
+    }
+
+    @Test
+    void testNotDeeletEntry() {
+        String simulatedInput = "addThese.txt\n" + "Her\n" + "1\n" + "N\n";
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(simulatedInput.getBytes());
+        System.setIn(inputStream);
+
+        AddressBook addressBook = AddressBook.getInstance();
+
+        addressBook.addAdressEntriesFromFile();
+
+        addressBook.showAddressBook();
+
+        addressBook.deleteAddressEntry();
+
+        addressBook.showAddressBook();
+
+        ArrayList<AddressEntry> entries = addressBook.getAddressEntries();
+
+        assertEquals(4, entries.size());
+    }
+
 
 }
