@@ -20,7 +20,7 @@ f) Salir
 */
 
 public class Menu {
-    private final AddressBook ADDRESS_BOOK;
+    private final AddressBook ADDRESS_BOOK = AddressBook.getInstance();
     private final char[] BULLET_LETTERS = {'a', 'b', 'c', 'd', 'e', 'f'};
     private final String[] OPTIONS = {
             "Upload from a file",
@@ -32,13 +32,15 @@ public class Menu {
     };
     private final InputReader READER = new InputReader();
 
-    public Menu(AddressBook addressBook) {
-        this.ADDRESS_BOOK = addressBook;
+    public Menu() {
+
     }
 
     public void displayAndHandleMenu() {
-        displayMenu();
-        getUserSelection();
+        while (true) {
+            displayMenu();
+            getUserSelection();
+        }
     }
 
     private void displayMenu(){
@@ -93,7 +95,7 @@ public class Menu {
     }
 
     private void exit() {
-        System.out.println("Bye! ");
+        System.out.println("Bye! See you later");
         System.exit(0);
     }
 

@@ -4,13 +4,10 @@ package adress.data;
 que contiene páginas (AdressEntry)
 */
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.File;
 import java.util.NoSuchElementException;
 
 public class AddressBook {
@@ -49,8 +46,10 @@ public class AddressBook {
             for (AddressEntry entry : entries) {
                 addAddressEntry(entry);
             }
-        } catch (NoSuchElementException ex) {
-            System.out.println("Huh? I can't find that file, sorry. Try again.");
+        } catch (NoSuchElementException exception) {
+            System.out.println("No input provided. Please try again.");
+        } catch (Exception exception) {
+            System.out.println("An unexpected error occurred: " + exception.getMessage());
         }
 
 
@@ -207,7 +206,10 @@ public class AddressBook {
                 entries.add(entry);
 
             }
+        } catch (FileNotFoundException notFoundException) {
+            System.out.println("Huh? I can't find that file, sorry. Try again.");
         } catch (IOException e) {
+            System.out.println("There are some problems with the reading. Please try again.");
             e.printStackTrace();
         }
         return entries;
@@ -238,7 +240,15 @@ public class AddressBook {
     }
 
     private boolean isATxtFile(String file){
-        return isDataNotEmpty(file) && file.endsWith(".txt");
+        if (file == null || file.trim().isEmpty()) {
+            System.out.println("Input is null or empty.");
+            return false;
+        }
+        if (!file.endsWith(".txt")) {
+            System.out.println("File does not end with .txt.");
+            return false;
+        }
+        return true;
     }
 
     private int lookingForExistingEntryByIndex(AddressEntry entry) {

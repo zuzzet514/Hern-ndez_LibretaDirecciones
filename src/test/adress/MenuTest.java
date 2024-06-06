@@ -12,7 +12,7 @@ import java.lang.reflect.Field;
 class MenuTest {
 
     private final InputStream originalSystemIn = System.in;
-    //private  Menu menu =  new Menu();
+
 
     @BeforeEach
     void setUp() {
@@ -37,16 +37,24 @@ class MenuTest {
     }
 
     @Test
-    void TestSelectInvalidOption() {
+    void testWrongLetterInput() {
         String simulatedInputForOption = "z" + "\n";
         ByteArrayInputStream inputStreamForOption = new ByteArrayInputStream(simulatedInputForOption.getBytes());
         System.setIn(inputStreamForOption);
 
-        AddressBook ad = AddressBook.getInstance();
-        Menu menu = new Menu(ad);
+
+        Menu menu = new Menu();
         menu.displayAndHandleMenu();
+    }
 
+    @Test
+    void testEmptyInput() {
+        String simulatedInputForOption = "z" + "\n";
+        ByteArrayInputStream inputStreamForOption = new ByteArrayInputStream(simulatedInputForOption.getBytes());
+        System.setIn(inputStreamForOption);
 
+        Menu menu = new Menu();
+        menu.displayAndHandleMenu();
     }
 
     @Test
@@ -55,10 +63,9 @@ class MenuTest {
         ByteArrayInputStream inputStreamForOption = new ByteArrayInputStream(simulatedInputForOption.getBytes());
         System.setIn(inputStreamForOption);
 
-        AddressBook ad = AddressBook.getInstance();
-        Menu menu = new Menu(ad);
-        menu.displayAndHandleMenu();
 
+        Menu menu = new Menu();
+        menu.displayAndHandleMenu();
     }
 
     @Test
@@ -67,8 +74,7 @@ class MenuTest {
         ByteArrayInputStream inputStreamForOption = new ByteArrayInputStream(simulatedInputForOption.getBytes());
         System.setIn(inputStreamForOption);
 
-        AddressBook ad = AddressBook.getInstance();
-        Menu menu = new Menu(ad);
+        Menu menu = new Menu();
         menu.displayAndHandleMenu();
     }
 
@@ -78,8 +84,7 @@ class MenuTest {
         ByteArrayInputStream inputStreamForOption = new ByteArrayInputStream(simulatedInputForOption.getBytes());
         System.setIn(inputStreamForOption);
 
-        AddressBook ad = AddressBook.getInstance();
-        Menu menu = new Menu(ad);
+        Menu menu = new Menu();
         menu.displayAndHandleMenu();
     }
 
@@ -89,8 +94,7 @@ class MenuTest {
         ByteArrayInputStream inputStreamForOption = new ByteArrayInputStream(simulatedInputForOption.getBytes());
         System.setIn(inputStreamForOption);
 
-        AddressBook ad = AddressBook.getInstance();
-        Menu menu = new Menu(ad);
+        Menu menu = new Menu();
         menu.displayAndHandleMenu();
     }
 
@@ -100,8 +104,7 @@ class MenuTest {
         ByteArrayInputStream inputStream = new ByteArrayInputStream(simulatedInput.getBytes());
         System.setIn(inputStream);
 
-        AddressBook ad = AddressBook.getInstance();
-        Menu menu = new Menu(ad);
+        Menu menu = new Menu();
         menu.displayAndHandleMenu();
 
     }
@@ -112,8 +115,7 @@ class MenuTest {
         ByteArrayInputStream inputStreamForOption = new ByteArrayInputStream(simulatedInputForOption.getBytes());
         System.setIn(inputStreamForOption);
 
-        AddressBook ad = AddressBook.getInstance();
-        Menu menu = new Menu(ad);
+        Menu menu = new Menu();
         menu.displayAndHandleMenu();
     }
 }

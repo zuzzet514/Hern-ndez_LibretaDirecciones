@@ -31,5 +31,25 @@ Oaxaca
 Cosoleacaque
 Veracruz
 96344
-isabelsuarezmartinez@gmail.com
+isabelsuarezmartinez57@gmail.com
 9221057858
+
+José
+Camacho
+Independencia 142
+Xalapa
+Veracruz
+96400
+josec@gmail.com
+9284236652
+
+María
+Flores
+Juan Escutia 1022
+Coatzacoalcos
+Veracruz
+96535
+maria@gmail.com
+9214233245
+
+Para agregar este archivo, se pone: TxtFilesToAdd/addThese.txt
