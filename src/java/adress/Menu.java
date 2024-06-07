@@ -6,19 +6,16 @@ import adress.data.InputReader;
 
 import java.util.NoSuchElementException;
 
-/*
-esta clase se utiliza para mostrar las opciones de menú al usuario
-displayMenu() muestra:
-a) Carga de entradas desde un archivo.
-b) Agregar
-c) Eliminar
-d) Buscar:
-e) Mostrar
-f) Salir
-
-
-*/
-
+/**
+ * This class is used to display menu options to the user.
+ * The displayMenu() method shows the following options:
+ * a) Load entries from a file.
+ * b) Add a new entry.
+ * c) Delete an entry.
+ * d) Search for entries.
+ * e) Show all entries.
+ * f) Exit the application.
+ */
 public class Menu {
     private final AddressBook ADDRESS_BOOK = AddressBook.getInstance();
     private final char[] BULLET_LETTERS = {'a', 'b', 'c', 'd', 'e', 'f'};
@@ -32,10 +29,16 @@ public class Menu {
     };
     private final InputReader READER = new InputReader();
 
+    /**
+     * Constructs a Menu object.
+     */
     public Menu() {
 
     }
 
+    /**
+     * Displays the menu and handles user selection in an infinite loo until the user decides to exit
+     */
     public void displayAndHandleMenu() {
         while (true) {
             displayMenu();
@@ -43,6 +46,9 @@ public class Menu {
         }
     }
 
+    /**
+     * Displays the menu options to the user.
+     */
     private void displayMenu(){
         String delimiter = "======================================";
         System.out.println(delimiter);
@@ -53,6 +59,9 @@ public class Menu {
         System.out.println(delimiter);
     }
 
+    /**
+     * Gets the user's menu selection and executes the corresponding action.
+     */
     private void getUserSelection() {
         try {
             String rawOption = READER.readData(" ", this::isInputInBullets);
@@ -62,6 +71,11 @@ public class Menu {
 
     }
 
+    /**
+     * Executes the action corresponding to the user's menu selection.
+     *
+     * @param selectedOption the menu option selected by the user
+     */
     private void executeSelectedOption(char selectedOption) {
 
         switch (selectedOption) {
@@ -84,6 +98,12 @@ public class Menu {
         }
     }
 
+    /**
+     * Checks if the user input corresponds to one of the menu bullet letters.
+     *
+     * @param input the user input to check
+     * @return true if the input is a valid bullet letter, false otherwise
+     */
     private boolean isInputInBullets(String input) {
         char option = input.charAt(0);
         for (char bullet: BULLET_LETTERS) {
@@ -94,10 +114,11 @@ public class Menu {
         return false;
     }
 
+    /**
+     * Exits the application with a goodbye message.
+     */
     private void exit() {
         System.out.println("Bye! See you later");
         System.exit(0);
     }
-
-
 }
