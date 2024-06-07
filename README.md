@@ -1,5 +1,3 @@
-https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax
-
 # Descripción
 The project is an Address Book Application that allows users to manage personal contact information through addresses entries. Users can:
 - Perform essential operations such as adding, deleting, searching, and displaying address entries.
