@@ -1,0 +1,1 @@
+typeSearchIndex = [{"p":"adress.data","l":"Address"},{"p":"adress.data","l":"AddressBook"},{"p":"adress","l":"AddressBookApplication"},{"p":"adress.data","l":"AddressEntry"},{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"adress.data","l":"InputReader"},{"p":"adress","l":"Menu"}];updateSearchResults();
