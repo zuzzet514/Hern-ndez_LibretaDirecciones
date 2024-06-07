@@ -2,7 +2,7 @@
  * Javadoc style sheet
  */
 
-@import url('resources/fonts/dejavu.css');
+@import url('uv/Hernandez_LibretaDirecciones/resources/fonts/dejavu.css');
 
 /*
  * Styles for individual HTML elements.
@@ -625,7 +625,7 @@ ul.ui-autocomplete  li {
     font-size: inherit;
 }
 #search-input {
-    background-image:url('resources/glass.png');
+    background-image:url('uv/Hernandez_LibretaDirecciones/resourcesdez_LibretaDirecciones/resources/glass.png');
     background-size:13px;
     background-repeat:no-repeat;
     background-position:2px 3px;
@@ -636,7 +636,7 @@ ul.ui-autocomplete  li {
 }
 #reset-button {
     background-color: rgb(255,255,255);
-    background-image:url('resources/x.png');
+    background-image:url('uv/Hernandez_LibretaDirecciones/resourcesdez_LibretaDirecciones/resources/x.png');
     background-position:center;
     background-repeat:no-repeat;
     background-size:12px;
