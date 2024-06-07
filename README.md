@@ -50,9 +50,7 @@ System works as expected, providing key functionalities for managing address ent
 # [JavaDoc URL](https://zuzzet514.github.io/Hernandez_LibretaDirecciones/)
 
 # UML Class Diagram
-▪ Sección C: UML/Diseño: contiene lo siguiente
-o C.1) Diagrama de jerarquía de clases UML: muestra la jerarquía y la
-cardinalidad y las asociaciones de objetos para este proyecto.
+![there are a few changes in some vairables name in the code and in the diagram](Diagrama_clases.png)
 
 # System screenshots
 ▪ Sección D: Capturas de pantalla del sistema: capturas de pantalla que muestran
