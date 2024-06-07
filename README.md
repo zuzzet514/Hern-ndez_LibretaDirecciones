@@ -47,10 +47,7 @@ System works as expected, providing key functionalities for managing address ent
     - _Purpose:_ Main class that starts the application and displays the menu.
     - _Data structures/Algorithms:_ Creates an instance of `Menu` and calls `displayAndHandleMenu()` method that executes infinitely until the user exits the application.
 
-# JavaDoc URL
-▪ Sección B: URL de JavaDoc: Publicación de código JavaDoc en su cuenta de
-GitHub. Cada clase, sus variables y métodos DEBEN ser documentados/descritos
-con la buena práctica aplicada de acuerdo a lo visto en clases.
+# [JavaDoc URL](https://zuzzet514.github.io/Hernandez_LibretaDirecciones/)
 
 # UML Class Diagram
 ▪ Sección C: UML/Diseño: contiene lo siguiente

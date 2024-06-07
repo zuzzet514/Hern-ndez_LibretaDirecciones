@@ -126,7 +126,7 @@ class AddressBookTest {
 
         addressBook.addAddressEntry(secondEntry);
 
-        ArrayList<AddressEntry> entries = AddressBook.getInstance().getAddressEntries();
+        ArrayList<AddressEntry> entries = AddressBook.getInstance().getADDRESS_ENTRY_LIST();
 
         assertEquals(2, entries.size());
 
@@ -166,7 +166,7 @@ class AddressBookTest {
 
         addressBook.addAddressEntry(secondEntry);
 
-        ArrayList<AddressEntry> entries = AddressBook.getInstance().getAddressEntries();
+        ArrayList<AddressEntry> entries = AddressBook.getInstance().getADDRESS_ENTRY_LIST();
 
         assertEquals(1, entries.size());
 
@@ -314,7 +314,7 @@ class AddressBookTest {
 
         addressBook.deleteAddressEntry();
 
-        ArrayList<AddressEntry> entries = AddressBook.getInstance().getAddressEntries();
+        ArrayList<AddressEntry> entries = AddressBook.getInstance().getADDRESS_ENTRY_LIST();
 
         assertEquals(1, entries.size());
 
@@ -358,7 +358,7 @@ class AddressBookTest {
 
         addressBook.deleteAddressEntry();
 
-        ArrayList<AddressEntry> entries = AddressBook.getInstance().getAddressEntries();
+        ArrayList<AddressEntry> entries = AddressBook.getInstance().getADDRESS_ENTRY_LIST();
 
         assertEquals(2, entries.size());
 
@@ -401,7 +401,7 @@ class AddressBookTest {
 
         addressBook.deleteAddressEntry();
 
-        ArrayList<AddressEntry> entries = AddressBook.getInstance().getAddressEntries();
+        ArrayList<AddressEntry> entries = AddressBook.getInstance().getADDRESS_ENTRY_LIST();
 
         assertEquals(1, entries.size());
 
@@ -420,7 +420,7 @@ class AddressBookTest {
 
         addressBook.showAddressBook();
 
-        ArrayList<AddressEntry> entries = AddressBook.getInstance().getAddressEntries();
+        ArrayList<AddressEntry> entries = AddressBook.getInstance().getADDRESS_ENTRY_LIST();
 
         assertEquals(4, entries.size());
 
@@ -438,7 +438,7 @@ class AddressBookTest {
 
         addressBook.showAddressBook();
 
-        ArrayList<AddressEntry> entries = AddressBook.getInstance().getAddressEntries();
+        ArrayList<AddressEntry> entries = AddressBook.getInstance().getADDRESS_ENTRY_LIST();
 
         assertEquals(1, entries.size());
     }
@@ -463,7 +463,7 @@ class AddressBookTest {
 
         addressBook.showAddressBook();
 
-        ArrayList<AddressEntry> entries = addressBook.getAddressEntries();
+        ArrayList<AddressEntry> entries = addressBook.getADDRESS_ENTRY_LIST();
 
         assertEquals(4, entries.size());
     }
@@ -484,7 +484,7 @@ class AddressBookTest {
 
         addressBook.showAddressBook();
 
-        ArrayList<AddressEntry> entries = addressBook.getAddressEntries();
+        ArrayList<AddressEntry> entries = addressBook.getADDRESS_ENTRY_LIST();
 
         assertEquals(4, entries.size());
     }
