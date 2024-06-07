@@ -53,18 +53,26 @@ System works as expected, providing key functionalities for managing address ent
 ![there are a few changes in some vairables name in the code and in the diagram](Diagrama_clases.png)
 
 # System screenshots
-▪ Sección D: Capturas de pantalla del sistema: capturas de pantalla que muestran
-su aplicación funcionando para los siguientes casos:
-o D.1) Evidencia 1: Leer entradas del archivo de datos seguidas de Mostrar
-listado. El archivo de datos debe contener un mínimo de 2 direcciones. Incluir
-captura de pantalla de salida y también mostrar el contenido correspondiente
-del archivo de datos
-o D.2) Evidencia 2: inmediatamente después de D.1, agregue un nuevo objeto
-AddressEntry seguido de un mostrar el resultado de un nuevo listado en
-consola
-o D.3) Evidencia 3: inmediatamente después de D.2 hacer una eliminación de
-una entrada seguida de un mostrar listado
-o D.4) Evidencia 4: inmediatamente siguiendo D.3 hago una búsqueda usando
-una entrada que debería recuperar al menos una entrada. Ahora haga una
-búsqueda usando una entrada que no debería recuperar ninguna entrada.
-Coloque capturas de pantalla de cada hallazgo aquí
+## Evidence 1: Reading entries from file then show them.
+### 1
+![](evidences/1.png)
+### 2
+![](evidences/2.png)
+### 3
+![](evidences/3.png)
+## Evidence 2: After evidence 1, add a new entry and then show the address book
+### 1
+![](evidences/4.png)
+### 2
+![](evidences/5.png)
+## Evidence 3: After evidence 2, delete an entry and then show the address book
+### 1
+![](evidences/6.png)
+### 2
+![](evidences/7.png)
+## Evidence 4: After evidence 3, do a search that returns something, then do a search that returns nothing 
+### 1
+![](evidences/8.png)
+### 2
+![](evidences/9.png)
+
