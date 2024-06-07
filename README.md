@@ -1,4 +1,4 @@
-# Descripción
+# Descrition
 The project is an Address Book Application that allows users to manage personal contact information through addresses entries. Users can:
 - Perform essential operations such as adding, deleting, searching, and displaying address entries.
 - Interact with the address book through various menu options in the CLI.
