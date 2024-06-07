@@ -438,7 +438,7 @@ public class AddressBook {
      */
     private void printAdressEntryList(ArrayList<AddressEntry> list) {
 
-        if (list.size() == 0) {
+        if (ADDRESS_ENTRY_LIST.size() == 0) {
             System.out.println("Nothing here yet");
         } else {
             for (int i = 0; i < list.size(); i++) {
